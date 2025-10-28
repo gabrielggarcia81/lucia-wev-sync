@@ -1,8 +1,6 @@
-// api/lucia.js - Lucia Chatbot API para Vercel
-
-import OpenAI from 'openai';
-import { createClient } from '@supabase/supabase-js';
-import axios from 'axios';
+const OpenAI = require('openai').default;
+const { createClient } = require('@supabase/supabase-js');
+const axios = require('axios');
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -121,7 +119,7 @@ async function finalizar_qualificacao({ classificacao, resumo }) {
 
 const tools = { buscar_preco_final, buscar_estoque_spot, finalizar_qualificacao };
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -192,5 +190,5 @@ export default async function handler(req, res) {
       message: error.message 
     });
   }
-}
+};
 

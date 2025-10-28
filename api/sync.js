@@ -1,7 +1,5 @@
-// api/sync.js - Spot Gifts Sync API para Vercel
-
-import axios from 'axios';
-import { createClient } from '@supabase/supabase-js';
+const axios = require('axios');
+const { createClient } = require('@supabase/supabase-js');
 
 const CONFIG = {
   stricker: {
@@ -129,7 +127,7 @@ class Sync {
   }
 }
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // Verificar se é uma requisição do Vercel Cron
   if (req.headers.authorization !== `Bearer ${process.env.CRON_SECRET}`) {
     return res.status(401).json({ error: 'Unauthorized' });
@@ -165,5 +163,5 @@ export default async function handler(req, res) {
       timestamp: new Date().toISOString()
     });
   }
-}
+};
 
